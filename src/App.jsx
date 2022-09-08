@@ -2,6 +2,7 @@
 // import Container from '@mui/material/Container';
 import { Container, Grid, Typography } from '@mui/material';
 import Formulario from './components/Formulario';
+import ListadoNoticias from './components/ListadoNoticias';
 import { NoticiasProvider } from './context/NoticiasProvider';
 
 function App() {
@@ -25,6 +26,8 @@ function App() {
             <Formulario />
           </Grid>
         </Grid>
+
+        <ListadoNoticias />
       </Container>
     </NoticiasProvider>
   )

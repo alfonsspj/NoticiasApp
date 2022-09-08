@@ -2,6 +2,7 @@ import { FormControl, InputLabel, Select, MenuItem, Button, Box } from '@mui/mat
 import axios from 'axios';
 import useNoticias from '../hooks/useNoticias';
 
+
 const CATEGORIAS = [
     { value: 'general', label: 'General'},
     { value: 'business', label: 'Negocios'},
