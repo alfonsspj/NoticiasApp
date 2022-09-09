@@ -4,7 +4,7 @@ import useNoticias from '../hooks/useNoticias'
 import Noticia from './Noticia'
 
 const ListadoNoticias = () => {
-    const { noticias } = useNoticias
+    const { noticias } = useNoticias()
     console.log(noticias);
   return (
     <>
@@ -17,12 +17,15 @@ const ListadoNoticias = () => {
             Últimas Noticias
         </Typography>
 
-        <Grid>
+        <Grid
+            container
+            spacing={2}
+        >
             {noticias.map(noticia => (
-                <Noticia>
+                <Noticia
                     key={noticia.url}
                     noticia={noticia}
-                </Noticia>
+                />
             ))}
         </Grid>
     </>
