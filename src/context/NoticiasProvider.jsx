@@ -9,22 +9,41 @@ const NoticiasProvider = ({children}) => {
     //colocar las noticias en el state
     const [noticias, setNoticias] = useState([])
 
-    // vamos a consultar a la api cada ves que cambie de categoria
+    const [pagina, setPagina] = useState(1)
+    const [totalNoticias, setTotalNoticias] = useState(0)
+
+    // vamos a consultar a la api cada ves que cambie de categoria -- filtra las categorias
     useEffect(() => {
         const consultarAPI = async () => {
-            const url = `https://newsapi.org/v2/top-headlines?country=mx&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
+            const url = `https://newsapi.org/v2/top-headlines?country=ar&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
             
-            const { data } = await axios(url)
-    
+            const { data } = await axios(url)    
             setNoticias(data.articles)
-    
+            setTotalNoticias(data.totalResults)
+            setPagina(1)   
         }
-        consultarAPI()
-    
+        consultarAPI()    
         }, [categoria])
+
+    //  escucha por la pagina
+    useEffect(() => {
+        const consultarAPI = async () => {
+            const url = `https://newsapi.org/v2/top-headlines?country=ar&page=${pagina}&category=${categoria}&apiKey=${import.meta.env.VITE_API_KEY}`
+            
+            const { data } = await axios(url)    
+            setNoticias(data.articles)
+            setTotalNoticias(data.totalResults)    
+        }
+        consultarAPI()    
+        }, [pagina])
 
     const handleChangeCategoria = e => {
         setCategoria(e.target.value)
+    }
+
+    const handleChangePagina = (e, valor) => {
+        // console.log(valor) // devuelve el numero de la pagina actual
+        setPagina(valor)
     }
 
     return (
@@ -32,7 +51,10 @@ const NoticiasProvider = ({children}) => {
             value={{
                 categoria,
                 handleChangeCategoria,
-                noticias
+                noticias,
+                totalNoticias,
+                handleChangePagina,
+                pagina
             }}
         >
             {children}
